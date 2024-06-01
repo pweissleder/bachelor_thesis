@@ -1,0 +1,21 @@
+version: "3"
+services:
+  iot-gateway:
+    container_name: iot-gateway
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+networks:
+  default:
+    driver: bridge
+
+#Only for local testing with server compose file. comment out other variant production
+#
+#    networks:
+#      - server_default
+#
+#networks:
+#  server_default:
+#    external: true

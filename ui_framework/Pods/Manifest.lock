@@ -1,0 +1,30 @@
+PODS:
+  - AnyCodable (1.2.0)
+  - CocoaAsyncSocket (7.6.5)
+  - CocoaMQTT (2.1.6):
+    - CocoaMQTT/Core (= 2.1.6)
+  - CocoaMQTT/Core (2.1.6):
+    - MqttCocoaAsyncSocket (~> 1.0.8)
+  - MqttCocoaAsyncSocket (1.0.8)
+
+DEPENDENCIES:
+  - AnyCodable
+  - CocoaAsyncSocket
+  - CocoaMQTT
+
+SPEC REPOS:
+  trunk:
+    - AnyCodable
+    - CocoaAsyncSocket
+    - CocoaMQTT
+    - MqttCocoaAsyncSocket
+
+SPEC CHECKSUMS:
+  AnyCodable: bb05e19c676899e0fd511652f2d83bfa044e2503
+  CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
+  CocoaMQTT: 1f206228b29318eabdacad0c2e4e88575922c27a
+  MqttCocoaAsyncSocket: 77d3b74f76228dd5a05d1f9526eab101d415b30c
+
+PODFILE CHECKSUM: 564e2bf175df3dd698f2a87539bba38268b82c67
+
+COCOAPODS: 1.15.2

@@ -1,0 +1,16 @@
+
+gateway:
+  server:
+    server_address: "http://"
+#    server_address: "http://server"
+    server_port: 8080
+    authentication_endpoint: "/security/getSessionToken"
+
+  message_broker:
+    broker_address: "[ServerIP]"
+#    broker_address: "mqtt"
+    broker_port: 1883
+
+  auth:
+    gateway_id: "[GatewayID]"
+    auth_token: "[Auth_Token]"

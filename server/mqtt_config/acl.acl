@@ -1,0 +1,23 @@
+user GatewayUser
+topic write gateways/+
+topic write gateways/+/reachable
+topic write devices/+
+topic read devices/+/leader
+topic read devices/+/command
+topic write devices/+/command/r
+
+user ServerUser
+topic readwrite gateways/+
+topic read gateways/+/reachable
+topic read devices/+
+topic readwrite devices/+/leader
+topic readwrite devices/+/command
+topic read devices/+/command/r
+
+user UIUser
+topic read devices/+
+topic read devices/+/leader
+topic read devices/+/command/r
+
+user MonitorUser
+topic readwrite #

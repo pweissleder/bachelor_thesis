@@ -1,0 +1,55 @@
+version: '3.7'
+# Oriented on equivalent file from the Unicorn Project
+# https://docs.docker.com/compose/
+# https://github.com/4nx/mosquitto
+# https://gist.github.com/ismailyenigul/b62c6f25ba473d9dac30caf7bbfeab73
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - target: 8080
+        published: 8080
+    depends_on:
+      - timescaledb
+      - mqtt
+    environment:
+      - 'SPRING_APPLICATION_NAME=server'
+      - "SPRING_DATASOURCE_URL=jdbc:postgresql://timescaledb:5432/unicorndb"
+      - 'SPRING_DATASOURCE_USERNAME=server'
+      - 'SPRING_DATASOURCE_PASSWORD=server_pass'
+      - 'SPRING_DATASOURCE_DRIVER-CLASS-NAME=org.postgresql.Driver'
+      - 'SPRING_JPA_SHOW-SQL=false'
+      - 'SPRING_JPA_HIBERNATE_DDL-AUTO=update'
+      - 'SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL=true'
+      - 'SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect'
+  timescaledb:
+    image: 'timescale/timescaledb:latest-pg15'
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    environment:
+      - 'POSTGRES_DB=unicorndb'
+      - 'POSTGRES_PASSWORD=server_pass'
+      - 'POSTGRES_USER=server'
+
+  mqtt:
+    image: 'eclipse-mosquitto:latest'
+    build:
+      context: .
+    ports:
+      - target: 1883
+        published: 1883
+        protocol: tcp
+    volumes:
+      - ./mqtt_config/:/mosquitto/config/:rw
+      - ./mqtt_config/mosquitto.conf:/mosquitto/config/mosquitto.conf:rw
+      - ./mqtt_config/passwordfile.passwd:/mosquitto/config/passwordfile.passwd:rw
+      - ./mqtt_config/acl.acl:/mosquitto/config/acl.acl:rw
+
+networks:
+  default:
+    driver: bridge
